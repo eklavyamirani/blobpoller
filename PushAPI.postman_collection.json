@@ -1,0 +1,121 @@
+{
+	"info": {
+		"_postman_id": "62864f97-02a4-4bd3-9e3c-a8942fd13748",
+		"name": "Streaming",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreateEntity",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "0d0802c1-3239-4628-923e-f0cce5e3f7c2",
+						"exec": [
+							"let entityName = \"Product\";",
+							"pm.environment.set(\"entityName\", entityName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/push/create/{{entityName}}",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"push",
+						"create",
+						"{{entityName}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostRows",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "ed46d43e-6be8-4f1b-85d7-1ae379dc5c62",
+						"exec": [
+							"let body = {",
+							"    id: Math.random() * 100",
+							"};",
+							"",
+							"pm.environment.set(\"body\", JSON.stringify(body));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{body}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:5001/push/{{entityName}}/addRows",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"push",
+						"{{entityName}}",
+						"addRows"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Health",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "f1cecdfb-e145-4059-be08-0ee4971ae131",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:5001/push",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"push"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
